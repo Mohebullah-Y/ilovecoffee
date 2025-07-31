@@ -1,7 +1,8 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, Patch, Post, Query, Res } from '@nestjs/common';
 import { response } from 'express';
 import { CoffeesService } from './coffees.service';
-import { error } from 'console';
+import { CreateCoffeeDto } from './dto/create-coffee.dto';
+import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -24,14 +25,14 @@ export class CoffeesController {
     }
 
     @Post()
-    create(@Body() body){
-        return this.coffeesService.create(body);
+    create(@Body() createCoffeeDto: CreateCoffeeDto){
+        return this.coffeesService.create(createCoffeeDto);
     }
 
     //There two https methods for update put/patch. put replaces entire resouce but patch modify resource partially 
     @Patch(':id')
-    update(@Param('id') id: string, @Body() body){
-        return this.coffeesService.update(id, body);
+    update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto){
+        return this.coffeesService.update(id, updateCoffeeDto);
     }
 
     @Delete(':id')
