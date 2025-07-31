@@ -3,6 +3,9 @@ import { Coffee } from './entities/coffee.entity';
 
 //Service saperate business logic from the controller
 //business logic saperation makes the logic reusable in muliple parts of application
+//in nestjs each Service is a provider which injects dependencies. it means that object can create various relationships to eachother
+//CoffeeServie is designed to be used by CoffeesController and anything that might need this functionality
+
 @Injectable()
 export class CoffeesService {
     private coffees: Coffee[] = [
