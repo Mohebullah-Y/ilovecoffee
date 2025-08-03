@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, Patch, Post, Query, Res } from '@nestjs/common';
-import { response } from 'express';
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
@@ -16,16 +15,12 @@ export class CoffeesController {
 
     @Get(':id')
     findOne(@Param('id') id: string){
-        // throw 'A random erroer';
-        const coffee = this.coffeesService.findOne(id);
-        if(!coffee){
-           throw new NotFoundException(`Coffee #${id} not found`);
-        }
-        return coffee;
+        return this.coffeesService.findOne(id);
     }
 
     @Post()
     create(@Body() createCoffeeDto: CreateCoffeeDto){
+        console.log(createCoffeeDto instanceof CreateCoffeeDto);
         return this.coffeesService.create(createCoffeeDto);
     }
 
