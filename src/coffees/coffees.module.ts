@@ -3,6 +3,7 @@ import { CoffeesService } from './coffees.service';
 import { CoffeesController } from './coffees.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Coffee } from './entities/coffee.entity';
+import { Flavor } from './entities/flavor.entity';
 
 //Module decorator include 4 main property
 //1.controller
@@ -10,7 +11,7 @@ import { Coffee } from './entities/coffee.entity';
 //3.imports: import other modules that this module requires
 //4.providers: list of services which will be instantiated by the nest injector
 @Module({
-    imports: [TypeOrmModule.forFeature([Coffee])],
+    imports: [TypeOrmModule.forFeature([Coffee, Flavor])],
     controllers: [CoffeesController],
     providers: [CoffeesService] 
 })

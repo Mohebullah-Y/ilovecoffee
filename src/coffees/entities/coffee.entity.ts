@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Flavor } from "./flavor.entity";
 
 //An entity represents relationship between typescript class and database table
 //Each entity class represent a sql table (typeorm name sql table based on our class name in lowercase)
@@ -14,6 +15,10 @@ export class Coffee {
     @Column()
     brand: string;
 
-    @Column('json', {nullable: true})
+    @JoinTable()
+    @ManyToMany(
+        type => Flavor,
+        flavor => flavor.coffees
+    )
     flavors: string[];
 }
