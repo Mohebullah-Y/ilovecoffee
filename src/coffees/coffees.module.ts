@@ -11,8 +11,8 @@ import { Flavor } from './entities/flavor.entity';
 //3.imports: import other modules that this module requires
 //4.providers: list of services which will be instantiated by the nest injector
 @Module({
-    imports: [TypeOrmModule.forFeature([Coffee, Flavor])],
-    controllers: [CoffeesController],
-    providers: [CoffeesService] 
+  imports: [TypeOrmModule.forFeature([Coffee, Flavor])],
+  controllers: [CoffeesController],
+  providers: [CoffeesService],
 })
 export class CoffeesModule {}
