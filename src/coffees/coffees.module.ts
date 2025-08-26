@@ -6,6 +6,8 @@ import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { Event } from 'src/events/entities/event.entity';
 
+class MockCoffeesService {}
+
 //Module decorator include 4 main property
 //1.controller
 //2.exports: list of providers used in this module and should be available in other module which import this module
@@ -14,7 +16,12 @@ import { Event } from 'src/events/entities/event.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])],
   controllers: [CoffeesController],
-  providers: [CoffeesService],
+  providers: [
+    {
+      provide: CoffeesService,
+      useValue: new MockCoffeesService()
+    },
+  ],
   exports: [CoffeesService]
 })
 export class CoffeesModule {}
