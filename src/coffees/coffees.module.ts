@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Injectable, Module } from '@nestjs/common';
 import { CoffeesService } from './coffees.service';
 import { CoffeesController } from './coffees.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,9 +9,16 @@ import { COFFEE_BRANDS } from './coffees.constants';
 
 // class MockCoffeesService {}
 
-class ConfigService{}
-class DevelopmentConfigService{}
-class ProductionConfigService{}
+// class ConfigService{}
+// class DevelopmentConfigService{}
+// class ProductionConfigService{}
+
+@Injectable()
+export class CoffeeBrandsFactory {
+  create(){
+     return ['buddy brew', 'nescafe'];
+  }
+}
 
 //Module decorator include 4 main property
 //1.controller
@@ -23,6 +30,7 @@ class ProductionConfigService{}
   controllers: [CoffeesController],
   providers: [
     CoffeesService,
+    /*
     {
       provide: ConfigService,
       useClass: process.env.NODE_ENV === 'development' ? DevelopmentConfigService : ProductionConfigService
@@ -30,6 +38,14 @@ class ProductionConfigService{}
     {
       provide: COFFEE_BRANDS,
       useValue: ['buddy brew', 'nescafe']
+    },
+    */
+    CoffeeBrandsFactory,
+    {
+      provide: COFFEE_BRANDS,
+      useFactory: (brandfactory: CoffeeBrandsFactory) =>
+        brandfactory.create(), 
+      inject: [CoffeeBrandsFactory]
     },
   ],
   exports: [CoffeesService]
