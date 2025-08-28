@@ -8,6 +8,7 @@ import { Flavor } from './entities/flavor.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 import { Event } from 'src/events/entities/event.entity';
 import { COFFEE_BRANDS } from './coffees.constants';
+import { ConfigService } from '@nestjs/config';
 
 //Service saperate business logic from the controller
 //business logic saperation makes the logic reusable in muliple parts of application
@@ -23,8 +24,11 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
-    @Inject(COFFEE_BRANDS) coffeeBrands: string[]
-  ) {}
+    private readonly configService: ConfigService,
+  ) {
+    const databaseHost = this.configService.get<string>('DATABASE_HOST', 'localhost');
+    console.log(databaseHost);
+  }
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;

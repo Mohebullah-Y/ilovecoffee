@@ -7,6 +7,7 @@ import { Flavor } from './entities/flavor.entity';
 import { Event } from 'src/events/entities/event.entity';
 import { COFFEE_BRANDS } from './coffees.constants';
 import { DataSource } from 'typeorm';
+import { ConfigModule } from '@nestjs/config';
 
 // class MockCoffeesService {}
 
@@ -27,7 +28,7 @@ import { DataSource } from 'typeorm';
 //3.imports: import other modules that this module requires
 //4.providers: list of services which will be instantiated by the nest injector
 @Module({
-  imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])],
+  imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event]), ConfigModule],
   controllers: [CoffeesController],
   providers: [
     CoffeesService,
