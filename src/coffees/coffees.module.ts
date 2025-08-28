@@ -1,4 +1,4 @@
-import { Injectable, Module } from '@nestjs/common';
+import { Injectable, Module, Scope } from '@nestjs/common';
 import { CoffeesService } from './coffees.service';
 import { CoffeesController } from './coffees.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -50,7 +50,7 @@ import { DataSource } from 'typeorm';
         console.log('[] Async Factory');
         return coffeeBrands;
       },
-      inject: [DataSource]
+      inject: [DataSource],
     },
   ],
   exports: [CoffeesService]

@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, Scope } from '@nestjs/common';
 import { Coffee } from './entities/coffee.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
@@ -14,7 +14,7 @@ import { COFFEE_BRANDS } from './coffees.constants';
 //in nestjs each Service is a provider which injects dependencies. it means that object can create various relationships to eachother
 //CoffeeServie is designed to be used by CoffeesController and anything that might need this functionality
 
-@Injectable()
+@Injectable({ scope: Scope.DEFAULT })
 export class CoffeesService {
   //typeorm supports repository design pattern, it means each entity create its own repository which this repository class is available from typeorm as an abstraction to the data source
   constructor(
@@ -24,7 +24,7 @@ export class CoffeesService {
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
     @Inject(COFFEE_BRANDS) coffeeBrands: string[]
-  ) {console.log(coffeeBrands)}
+  ) {}
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit, offset } = paginationQuery;
