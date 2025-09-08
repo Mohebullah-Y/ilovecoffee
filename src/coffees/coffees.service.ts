@@ -9,12 +9,12 @@ import { Coffee } from './entities/coffee.entity';
 @Injectable()
 export class CoffeesService {
     private coffees: Coffee[] = [
-      {
-       id: 1,
-       name: "Spresso",
-       brand: 'Buddy Brew',
-       flavors: ['chocolate','vanilla'] 
-      },
+      // {
+      //  id: 1,
+      //  name: "Spresso",
+      //  brand: 'Buddy Brew',
+      //  flavors: ['chocolate','vanilla'] 
+      // },
     ];
     
     findAll(){
