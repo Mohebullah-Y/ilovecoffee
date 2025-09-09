@@ -2,11 +2,11 @@ import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import * as mongoose from "mongoose";
 
 @Schema()
-export class Event {
+export class Event extends mongoose.Document {
     @Prop()
     type: string;
 
-    @Prop()
+    @Prop({ index: true })
     name: string;
 
     @Prop(mongoose.SchemaTypes.Mixed)
@@ -14,3 +14,4 @@ export class Event {
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event);
+EventSchema.index({ name: 1, type: -1 });
